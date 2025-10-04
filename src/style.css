@@ -1,0 +1,14 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #f5f6f8;
+  margin: 0;
+}
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #ddd;
+}
+button:hover {
+  background: #bbb;
+}
