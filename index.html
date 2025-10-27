@@ -1,88 +1,120 @@
-
 <!doctype html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <!-- 기본 뷰포트 -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>MINI GOLD NFT</title>
-
-  <!-- 데스크톱에서 강제로 '모바일 폭(430px)'으로 보이게 -->
-  <script>
-    (function () {
-      var isDesktop = matchMedia('(min-width: 768px)').matches;
-      if (isDesktop) {
-        var m = document.querySelector('meta[name=viewport]');
-        if (m) m.setAttribute('content', 'width=430, initial-scale=1, maximum-scale=1');
-        document.documentElement.classList.add('force-mobile');
-      }
-    })();
-  </script>
-
   <style>
-    :root { --app-max: 430px; }
-    html { background:#0f1115; }
-    body {
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Noto Sans KR', sans-serif;
-      color:#e5e7eb; background:#0f1115;
-      display:flex; justify-content:center;
-    }
-    .app { width: 100%; max-width: var(--app-max); min-height: 100vh; background:#0f1115; }
-
-    /* 헤더/카드/탭바 기본 */
-    header { position:sticky; top:0; z-index:10; display:flex; justify-content:center; align-items:center;
-             padding: 14px 16px; border-bottom:1px solid #1f2937; background:#0b0d11; }
-    header h1 { margin:0; font-size:18px; letter-spacing: .2px; }
-    .container { padding:16px; }
-    .card { background:#11151c; border:1px solid #242a35; border-radius:14px; padding:14px; }
-    .stat { margin: 8px 0; }
-    .stat strong { color:#fff; }
-    .red { color:#f87171; }
-    .tabbar-wrap { height:68px; }
-    .tabbar {
-      position: fixed; left: 50%; transform: translateX(-50%);
-      bottom: 10px; width: 100%; max-width: var(--app-max);
-      display:grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
-      padding: 8px; box-sizing: border-box;
-    }
-    .tabbar a {
-      display:block; text-align:center; padding:10px 0; border-radius:12px;
-      background:#191d26; color:#d8dee9; border:1px solid #2a2f3a; text-decoration:none; font-size:14px;
-    }
-
-    /* 폰 전용 UI도 데스크톱에서 보이게 강제 */
-    .force-mobile .mobile-only { display: block !important; }
-    .force-mobile .desktop-only { display: none !important; }
+    :root{ --app-max:430px; --bg:#0c0f14; --bg-elev:#121722; --line:#1d2533; --text:#e8edf7; --muted:#9fb0c9; --gold:#ffd76a; --accent:#6cd4ff; --danger:#ff7b7b; --chip:#182030; --radius:16px; --shadow:0 12px 30px rgba(0,0,0,.35);}
+    html{background:var(--bg);} body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans KR',sans-serif;display:flex;justify-content:center;}
+    .app{width:100%;max-width:var(--app-max);min-height:100vh;}
+    .topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#0e131b 0%,#0c0f14 100%);border-bottom:1px solid var(--line);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;}
+    .brand{font-weight:900;letter-spacing:.3px;} .iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--chip);display:grid;place-items:center;color:var(--text);} .row{display:flex;gap:10px;align-items:center;} .container{padding:16px;}
+    .card{background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);} .stat{margin:6px 0;} .muted{color:var(--muted);} .danger{color:var(--danger);} .mt12{margin-top:12px;}
+    .slider-wrap{position:relative;margin-top:14px;} .slider{overflow:hidden;border-radius:var(--radius);border:1px solid var(--line);background:#0b0f17;} .slides{display:flex;width:500%;transform:translateX(0);transition:transform .45s ease;}
+    .slide{min-width:100%;height:160px;display:grid;place-items:center;text-align:center;color:#0b0f17;font-weight:900;font-size:26px;letter-spacing:.4px;}
+    .s1{background:linear-gradient(135deg,#ffd76a,#ffb457);color:#0c0f14;} .s2{background:linear-gradient(135deg,#6cd4ff,#5ad0b5);} .s3{background:linear-gradient(135deg,#d2b2ff,#7aa2ff);} .s4{background:linear-gradient(135deg,#ff9aa2,#ffe3a3);color:#0c0f14;} .s5{background:linear-gradient(135deg,#a6ff9f,#6ef7e9);color:#0c0f14;}
+    .dots{display:flex;gap:6px;justify-content:center;margin-top:10px;} .dot{width:8px;height:8px;border-radius:99px;background:#2b3548;} .dot.active{background:var(--gold);box-shadow:0 0 0 4px rgba(255,215,106,.16);}
+    .spacer{height:72px;} .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:100%;max-width:var(--app-max);display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px;box-sizing:border-box;}
+    .tab{display:block;text-align:center;padding:12px 0;border-radius:14px;background:var(--chip);border:1px solid var(--line);color:var(--text);text-decoration:none;} .tab.active{background:var(--gold);color:#0c0f14;border-color:var(--gold);font-weight:900;}
+    .drawer{position:fixed;inset:0;z-index:50;display:none;} .drawer.open{display:block;} .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5);} .drawer .panel{position:absolute;left:0;top:0;bottom:0;width:78%;max-width:300px;background:#0b0f17;border-right:1px solid var(--line);box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:10px;}
+    .drawer a{color:var(--text);text-decoration:none;padding:10px 8px;border-radius:10px;} .drawer a:hover{background:#151c2a;}
   </style>
 </head>
 <body>
   <div class="app">
-    <header><h1>MINI GOLD NFT</h1></header>
+    <div class="topbar">
+      <div class="row">
+        <button class="iconbtn" id="btn-menu" aria-label="메뉴">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+        </button>
+        <div class="brand">MINI GOLD NFT</div>
+      </div>
+      <button class="iconbtn" id="btn-globe" aria-label="언어/글로벌">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg>
+      </button>
+    </div>
 
     <main class="container">
-      <!-- 기존 index.html의 본문을 이 안쪽으로 옮겨 넣으세요 -->
-      <div class="card">
+      <section class="card">
         <p class="stat">보유 NFT: <strong>1,467 pieces</strong></p>
         <p class="stat">당일 수익 NFT: <strong>10 pieces</strong></p>
         <p class="stat">락업 수익 NFT: <strong>300 pieces</strong></p>
-        <p class="stat red">NFT 1 pieces / 5,000 KRW</p>
-      </div>
+        <p class="stat danger">NFT 1 pieces / 5,000 KRW</p>
+      </section>
 
-      <!-- 예시: 모바일 전용 영역(PC에서도 보이도록 강제됨) -->
-      <div class="card mobile-only" style="margin-top:12px;">
-        <strong>모바일 전용 영역</strong>
-        <p class="stat">여기 내용은 폰/PC 모두에서 보입니다(강제 모바일 모드).</p>
-      </div>
+      <section class="card mt12">
+        <div class="muted" style="font-weight:800;margin-bottom:6px;">모바일 전용 영역</div>
+        <div class="muted">여기 내용은 폰/PC 모두에서 보입니다(강제 모바일 모드).</div>
+      </section>
+
+      <section class="slider-wrap">
+        <div class="slider" id="slider">
+          <div class="slides" id="slides">
+            <div class="slide s1">SLIDE 1</div>
+            <div class="slide s2">SLIDE 2</div>
+            <div class="slide s3">SLIDE 3</div>
+            <div class="slide s4">SLIDE 4</div>
+            <div class="slide s5">SLIDE 5</div>
+          </div>
+        </div>
+        <div class="dots" id="dots">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </section>
     </main>
 
-    <div class="tabbar-wrap"></div>
+    <div class="spacer"></div>
     <nav class="tabbar">
-      <a href="/">Home</a>
-      <a href="/event">Event</a>
-      <a href="/invest">Invest</a>
-      <a href="/service">Service</a>
+      <a class="tab active" href="/">Home</a>
+      <a class="tab" href="/event">Event</a>
+      <a class="tab" href="/invest">Invest</a>
+      <a class="tab" href="/service">Service</a>
     </nav>
+
+    <div class="drawer" id="drawer">
+      <div class="backdrop" id="backdrop"></div>
+      <aside class="panel">
+        <div class="row" style="justify-content:space-between;align-items:center;">
+          <div style="font-weight:900;">메뉴</div>
+          <button class="iconbtn" id="btn-close" aria-label="닫기">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <a href="/">대시보드</a>
+        <a href="/event">이벤트</a>
+        <a href="/invest">투자</a>
+        <a href="/service">서비스</a>
+        <a href="/my">마이페이지</a>
+      </aside>
+    </div>
   </div>
+
+  <script>
+    // Drawer
+    const drawer = document.getElementById('drawer');
+    document.getElementById('btn-menu').addEventListener('click', ()=> drawer.classList.add('open'));
+    document.getElementById('btn-close').addEventListener('click', ()=> drawer.classList.remove('open'));
+    document.getElementById('backdrop').addEventListener('click', ()=> drawer.classList.remove('open'));
+    document.getElementById('btn-globe').addEventListener('click', ()=> alert('언어/지역 설정 예정 영역'));
+
+    // Slider
+    const slides = document.getElementById('slides');
+    const dots = Array.from(document.getElementById('dots').children);
+    let idx=0, total=5, timer=null;
+
+    function go(i){ idx=(i+total)%total; slides.style.transform='translateX('+(-idx*100)+'%)'; dots.forEach((d,n)=>d.classList.toggle('active',n===idx)); }
+    function start(){ stop(); timer=setInterval(()=>go(idx+1), 3000); }
+    function stop(){ if(timer) clearInterval(timer); }
+
+    dots.forEach((d,n)=> d.addEventListener('click', ()=>{ go(n); start(); }));
+
+    let startX=0,curX=0,drag=false;
+    slides.addEventListener('touchstart', e=>{ drag=true; startX=e.touches[0].clientX; stop(); });
+    slides.addEventListener('touchmove', e=>{ if(!drag) return; curX=e.touches[0].clientX; });
+    slides.addEventListener('touchend', ()=>{ if(!drag) return; drag=false; const dx=curX-startX; if(dx>40) go(idx-1); else if(dx<-40) go(idx+1); start(); });
+
+    go(0); start();
+  </script>
 </body>
 </html>
