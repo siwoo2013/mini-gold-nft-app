@@ -2,38 +2,76 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MINI GOLD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>{% block title %}MINI GOLD NFT{% endblock %}</title>
   <style>
-    body { background:#0f1115; color:#eee; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; }
-    header { padding:16px 20px; display:flex; justify-content:space-between; align-items:center; background:#0b0d11; border-bottom:1px solid #1b1f27; position:sticky; top:0 }
-    a { color:#ffd76a; text-decoration:none; }
-    .container { max-width:960px; margin: 28px auto; padding: 0 16px; }
-    .title { font-size:22px; margin: 8px 0 16px; }
-    .form { display:grid; gap:12px; max-width:420px; }
-    input, button { padding:12px 14px; border-radius:10px; border:1px solid #2a2f3a; background:#12151b; color:#eee; }
-    button { background:#ffd76a; color:#111; border:none; font-weight:700; cursor:pointer; }
-    button:hover { filter:brightness(0.95); }
-    .flash { padding:10px 12px; border-radius:10px; margin:12px 0; }
-    .flash.error { background:#3a1012; color:#ff9aa2; border:1px solid #5b1a1f; }
-    .flash.info { background:#12263a; color:#a6d1ff; border:1px solid #1c3958; }
-    .flash.success { background:#103a14; color:#8ff7a7; border:1px solid #1e5b25; }
-    nav a { margin-right: 12px; }
+    :root { --app-max: 430px; }
+
+    html { display:flex; justify-content:center; background:#0f1115; }
+    body {
+      width:100%; max-width: var(--app-max); margin: 0 auto; min-height: 100vh;
+      background:#0f1115; color:#eceff4;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Noto Sans KR', sans-serif;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      display:flex; align-items:center; justify-content:space-between;
+      background:#0b0d11; padding:12px 14px; border-bottom:1px solid #1c2230;
+    }
+    header .brand { font-weight: 800; letter-spacing: .2px; }
+    header a { color:#ffd76a; text-decoration:none; }
+    .container { padding:16px; }
+    .card { background:#11151c; border:1px solid #242a35; border-radius:14px; padding:14px; }
+    .muted { color:#aab3c3; }
+    button, .btn {
+      display:inline-block; padding:12px 14px; border-radius:12px;
+      background:#ffd76a; color:#111; border:none; font-weight:700; cursor:pointer; text-decoration:none;
+    }
+    .tabbar-wrap { height:68px; }
+    .tabbar {
+      position: fixed; left: 50%; transform: translateX(-50%);
+      bottom: 10px; width: 100%; max-width: var(--app-max);
+      display:grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+      padding: 8px; box-sizing: border-box;
+    }
+    .tabbar a {
+      display:block; text-align:center; padding:10px 0; border-radius:12px;
+      background:#191d26; color:#d8dee9; border:1px solid #2a2f3a; text-decoration:none; font-size:14px;
+    }
+    .tabbar a.active { background:#ffd76a; color:#111; border-color:#ffd76a; font-weight:800; }
   </style>
+  {% block head %}{% endblock %}
 </head>
 <body>
   <header>
-    <div><strong>MINI GOLD</strong></div>
-    <nav>
-      <a href="/">홈</a>
-      <a href="/phone">전화번호</a>
-    </nav>
+    <div class="brand">MINI GOLD NFT</div>
+    <nav><a href="/">Home</a></nav>
   </header>
+
   <main class="container">
-    {% for cat, msg in get_flashed_messages(with_categories=True) %}
-      <div class="flash {{ cat }}">{{ msg }}</div>
-    {% endfor %}
+    {% with msgs = get_flashed_messages(with_categories=True) %}
+      {% if msgs %}
+        {% for cat, msg in msgs %}
+          <div class="card" style="margin:8px 0; border-color:#334155">
+            <div class="muted"><strong>{{ cat|capitalize }}</strong></div>
+            <div>{{ msg }}</div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
   </main>
+
+  <div class="tabbar-wrap"></div>
+  <nav class="tabbar">
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+    <a href="/event" class="{% if request.path.startswith('/event') %}active{% endif %}">Event</a>
+    <a href="/invest" class="{% if request.path.startswith('/invest') %}active{% endif %}">Invest</a>
+    <a href="/service" class="{% if request.path.startswith('/service') %}active{% endif %}">Service</a>
+    <a href="/my" class="{% if request.path.startswith('/my') %}active{% endif %}">MY</a>
+  </nav>
+
+  {% block scripts %}{% endblock %}
 </body>
 </html>
