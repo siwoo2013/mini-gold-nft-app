@@ -1,66 +1,114 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>MINI GOLD NFT</title>
-  <style>
-    :root { --app-max: 430px; }
-    html { background:#0f1115; }
-    body {
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Noto Sans KR', sans-serif;
-      color:#e5e7eb; background:#0f1115;
-      display:flex; justify-content:center;
-    }
-    .app {
-      width: 100%; max-width: var(--app-max);
-      min-height: 100vh;
-      background:#0f1115;
-    }
-    header { position:sticky; top:0; z-index:10; display:flex; justify-content:center; align-items:center;
-             padding: 14px 16px; border-bottom:1px solid #1f2937; background:#0b0d11; }
-    header h1 { margin:0; font-size:18px; letter-spacing: .2px; }
-    .container { padding:16px; }
-    .card { background:#11151c; border:1px solid #242a35; border-radius:14px; padding:14px; }
-    .stat { margin: 8px 0; }
-    .stat strong { color:#fff; }
-    .red { color:#f87171; }
-    .tabbar-wrap { height:68px; }
-    .tabbar {
-      position: fixed; left: 50%; transform: translateX(-50%);
-      bottom: 10px; width: 100%; max-width: var(--app-max);
-      display:grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
-      padding: 8px; box-sizing: border-box;
-    }
-    .tabbar a {
-      display:block; text-align:center; padding:10px 0; border-radius:12px;
-      background:#191d26; color:#d8dee9; border:1px solid #2a2f3a; text-decoration:none; font-size:14px;
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div class="app">
-    <header><h1>MINI GOLD NFT</h1></header>
+  <!-- Phone-sized viewport wrapper so PC에서도 모바일처럼 보이게 -->
+  <div class="device">
+    <header class="appbar">
+      <button class="icon-btn" id="btnMenu" aria-label="메뉴">
+        <!-- hamburger -->
+        <svg viewBox="0 0 24 24" class="icon"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+      </button>
+      <h1 class="title">MINI GOLD NFT</h1>
+      <button class="icon-btn" id="btnGlobe" aria-label="언어/공지">
+        <!-- globe -->
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2a8 8 0 016.32 12.9l-2.03-1.17A9.96 9.96 0 0018 12h-4c0-2.08-.57-3.98-1.53-5.49A7.97 7.97 0 0112 4zm0 16a8 8 0 01-6.32-12.9l2.03 1.17A9.96 9.96 0 006 12h4c0 2.08.57 3.98 1.53 5.49.47.73 1.02 1.39 1.65 1.97A7.97 7.97 0 0112 20z"/></svg>
+      </button>
+    </header>
 
-    <main class="container">
-      <!-- 기존 index.html의 본문을 이 안쪽으로 옮겨 넣으세요 -->
-      <div class="card">
-        <p class="stat">보유 NFT: <strong>1,467 pieces</strong></p>
-        <p class="stat">당일 수익 NFT: <strong>10 pieces</strong></p>
-        <p class="stat">락업 수익 NFT: <strong>300 pieces</strong></p>
-        <p class="stat red">NFT 1 pieces / 5,000 KRW</p>
-      </div>
+    <main class="content">
+      <p class="userid">홍길동 <span class="mask">3***5386</span></p>
+
+      <section class="card stats">
+        <div class="row">
+          <span>보유 NFT</span>
+          <strong>1,467 pieces</strong>
+        </div>
+        <div class="row">
+          <span>당일 수익 NFT</span>
+          <strong>10 pieces</strong>
+        </div>
+        <div class="row">
+          <span>락업 수익 NFT</span>
+          <strong>300 pieces</strong>
+        </div>
+        <p class="price">NFT 1 pieces / 5,000 KRW</p>
+      </section>
+
+      <!-- 슬라이드 배너 -->
+      <section class="banner card">
+        <div class="carousel" id="carousel">
+          <div class="slide gold">
+            <h3>오늘의 이벤트</h3>
+            <p>첫 구매 골드 리워드 지급</p>
+          </div>
+          <div class="slide dark">
+            <h3>락업 보너스</h3>
+            <p>30일 유지 시 추가 3%</p>
+          </div>
+          <div class="slide light">
+            <h3>친구 초대</h3>
+            <p>초대 한 명당 1 NFT 지급</p>
+          </div>
+        </div>
+        <div class="dots" id="dots"></div>
+      </section>
     </main>
 
-    <div class="tabbar-wrap"></div>
+    <!-- 하단 탭 -->
     <nav class="tabbar">
-      <a href="/">Home</a>
-      <a href="/event">Event</a>
-      <a href="/invest">Invest</a>
-      <a href="/service">Service</a>
+      <button class="tab active">Home</button>
+      <button class="tab">Event</button>
+      <button class="tab">Invest</button>
+      <button class="tab">Service</button>
+      <button class="tab">MY</button>
     </nav>
+
+    <!-- 사이드 메뉴 (햄버거) -->
+    <aside class="drawer" id="drawer">
+      <div class="drawer-header">
+        <div class="avatar">HG</div>
+        <div>
+          <div class="name">홍길동</div>
+          <div class="sub">3***5386</div>
+        </div>
+      </div>
+      <ul class="drawer-list">
+        <li><span>대시보드</span></li>
+        <li><span>입출금</span></li>
+        <li><span>거래내역</span></li>
+        <li><span>고객센터</span></li>
+        <li><span>설정</span></li>
+      </ul>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <!-- 언어/공지 팝업 -->
+    <dialog id="langDialog" class="dialog">
+      <form method="dialog">
+        <h3>언어 선택</h3>
+        <div class="chips">
+          <button value="ko" class="chip active">한국어</button>
+          <button value="en" class="chip">English</button>
+          <button value="ja" class="chip">日本語</button>
+        </div>
+        <h4>공지</h4>
+        <ul class="notice">
+          <li>10/31 서버 점검 예정</li>
+          <li>신규 결제 수단 추가</li>
+        </ul>
+        <div class="dialog-actions">
+          <button class="btn primary">닫기</button>
+        </div>
+      </form>
+    </dialog>
   </div>
+
+  <script src="./script.js"></script>
 </body>
 </html>
