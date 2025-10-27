@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MINI GOLD</title>
+  <style>
+    body { background:#0f1115; color:#eee; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; }
+    header { padding:16px 20px; display:flex; justify-content:space-between; align-items:center; background:#0b0d11; border-bottom:1px solid #1b1f27; position:sticky; top:0 }
+    a { color:#ffd76a; text-decoration:none; }
+    .container { max-width:960px; margin: 28px auto; padding: 0 16px; }
+    .title { font-size:22px; margin: 8px 0 16px; }
+    .form { display:grid; gap:12px; max-width:420px; }
+    input, button { padding:12px 14px; border-radius:10px; border:1px solid #2a2f3a; background:#12151b; color:#eee; }
+    button { background:#ffd76a; color:#111; border:none; font-weight:700; cursor:pointer; }
+    button:hover { filter:brightness(0.95); }
+    .flash { padding:10px 12px; border-radius:10px; margin:12px 0; }
+    .flash.error { background:#3a1012; color:#ff9aa2; border:1px solid #5b1a1f; }
+    .flash.info { background:#12263a; color:#a6d1ff; border:1px solid #1c3958; }
+    .flash.success { background:#103a14; color:#8ff7a7; border:1px solid #1e5b25; }
+    nav a { margin-right: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>MINI GOLD</strong></div>
+    <nav>
+      <a href="/">홈</a>
+      <a href="/phone">전화번호</a>
+    </nav>
+  </header>
+  <main class="container">
+    {% for cat, msg in get_flashed_messages(with_categories=True) %}
+      <div class="flash {{ cat }}">{{ msg }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

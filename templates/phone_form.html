@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="title">전화번호 등록</h2>
+<form method="post" action="{{ url_for('phone.phone_submit') }}" class="form">
+  <label for="phone">전화번호</label>
+  <input id="phone" name="phone" placeholder="010-1234-5678" required>
+  <p class="hint">국내 번호는 010-XXXX-XXXX 형식으로 입력하세요.</p>
+  <button type="submit">인증코드 받기</button>
+</form>
+{% endblock %}

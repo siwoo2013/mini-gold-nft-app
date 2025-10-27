@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="title">인증코드 확인</h2>
+<p>전송된 코드(테스트 환경)는 화면 입력만 하면 됩니다.<br>번호: <strong>{{ phone }}</strong></p>
+<form method="post" action="{{ url_for('phone.phone_verify_submit') }}" class="form">
+  <label for="code">인증코드 6자리</label>
+  <input id="code" name="code" inputmode="numeric" pattern="\d{6}" placeholder="123456" required>
+  <button type="submit">확인</button>
+</form>
+{% endblock %}
