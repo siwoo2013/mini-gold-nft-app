@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -5,15 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>MINI GOLD NFT</title>
   <style>
-    :root{ --app-max:430px; --bg:#0c0f14; --bg-elev:#121722; --line:#1d2533; --text:#e8edf7; --muted:#9fb0c9; --gold:#ffd76a; --accent:#6cd4ff; --danger:#ff7b7b; --chip:#182030; --radius:16px; --shadow:0 12px 30px rgba(0,0,0,.35);}
+    :root{ --app-max:430px; --bg:#0c0f14; --bg-elev:#121722; --line:#1d2533; --text:#e8edf7; --muted:#9fb0c9; --gold:#ffd76a; --chip:#182030; --radius:16px; --shadow:0 12px 30px rgba(0,0,0,.35);}
     html{background:var(--bg);} body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans KR',sans-serif;display:flex;justify-content:center;}
     .app{width:100%;max-width:var(--app-max);min-height:100vh;}
     .topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#0e131b 0%,#0c0f14 100%);border-bottom:1px solid var(--line);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;}
     .brand{font-weight:900;letter-spacing:.3px;} .iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--chip);display:grid;place-items:center;color:var(--text);} .row{display:flex;gap:10px;align-items:center;} .container{padding:16px;}
-    .card{background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);} .stat{margin:6px 0;} .muted{color:var(--muted);} .danger{color:var(--danger);} .mt12{margin-top:12px;}
-    .slider-wrap{position:relative;margin-top:14px;} .slider{overflow:hidden;border-radius:var(--radius);border:1px solid var(--line);background:#0b0f17;} .slides{display:flex;width:500%;transform:translateX(0);transition:transform .45s ease;}
-    .slide{min-width:100%;height:160px;display:grid;place-items:center;text-align:center;color:#0b0f17;font-weight:900;font-size:26px;letter-spacing:.4px;}
-    .s1{background:linear-gradient(135deg,#ffd76a,#ffb457);color:#0c0f14;} .s2{background:linear-gradient(135deg,#6cd4ff,#5ad0b5);} .s3{background:linear-gradient(135deg,#d2b2ff,#7aa2ff);} .s4{background:linear-gradient(135deg,#ff9aa2,#ffe3a3);color:#0c0f14;} .s5{background:linear-gradient(135deg,#a6ff9f,#6ef7e9);color:#0c0f14;}
+    .card{background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);} .stat{margin:6px 0;} .muted{color:var(--muted);} .danger{color:#ff7b7b;} .mt12{margin-top:12px;}
+    .slider-wrap{position:relative;margin-top:14px;} .slider{overflow:hidden;border-radius:var(--radius);border:1px solid var(--line);background:#0b0f17;} .slides{display:flex;width:100%;transform:translateX(0);transition:transform .45s ease;}
+    .slide{min-width:100%;height:170px;position:relative;} .slide a{display:block;width:100%;height:100%;}
+    .slide img{width:100%;height:100%;object-fit:cover;display:block;}
     .dots{display:flex;gap:6px;justify-content:center;margin-top:10px;} .dot{width:8px;height:8px;border-radius:99px;background:#2b3548;} .dot.active{background:var(--gold);box-shadow:0 0 0 4px rgba(255,215,106,.16);}
     .spacer{height:72px;} .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:100%;max-width:var(--app-max);display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px;box-sizing:border-box;}
     .tab{display:block;text-align:center;padding:12px 0;border-radius:14px;background:var(--chip);border:1px solid var(--line);color:var(--text);text-decoration:none;} .tab.active{background:var(--gold);color:#0c0f14;border-color:var(--gold);font-weight:900;}
@@ -43,24 +44,11 @@
         <p class="stat danger">NFT 1 pieces / 5,000 KRW</p>
       </section>
 
-      <section class="card mt12">
-        <div class="muted" style="font-weight:800;margin-bottom:6px;">모바일 전용 영역</div>
-        <div class="muted">여기 내용은 폰/PC 모두에서 보입니다(강제 모바일 모드).</div>
-      </section>
-
       <section class="slider-wrap">
-        <div class="slider" id="slider">
-          <div class="slides" id="slides">
-            <div class="slide s1">SLIDE 1</div>
-            <div class="slide s2">SLIDE 2</div>
-            <div class="slide s3">SLIDE 3</div>
-            <div class="slide s4">SLIDE 4</div>
-            <div class="slide s5">SLIDE 5</div>
-          </div>
+        <div class="slider">
+          <div class="slides" id="slides"></div>
         </div>
-        <div class="dots" id="dots">
-          <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-        </div>
+        <div class="dots" id="dots"></div>
       </section>
     </main>
 
@@ -91,6 +79,16 @@
   </div>
 
   <script>
+    // ==== 슬라이드 목록만 수정하면 됩니다 ====
+    // 이미지 파일은 /slide 폴더에 넣으세요 (예: slide/slide1.jpg)
+    const SLIDES = [
+      { src: 'slide/slide1.jpg', href: '/event',   alt: '이벤트 배너' },
+      { src: 'slide/slide2.jpg', href: '/invest',  alt: '투자 배너' },
+      { src: 'slide/slide3.jpg', href: '/service', alt: '서비스 배너' },
+      { src: 'slide/slide4.jpg', href: 'https://example.com', alt: '외부 링크' },
+      { src: 'slide/slide5.jpg', href: '/my',      alt: '마이페이지 배너' },
+    ];
+
     // Drawer
     const drawer = document.getElementById('drawer');
     document.getElementById('btn-menu').addEventListener('click', ()=> drawer.classList.add('open'));
@@ -98,21 +96,30 @@
     document.getElementById('backdrop').addEventListener('click', ()=> drawer.classList.remove('open'));
     document.getElementById('btn-globe').addEventListener('click', ()=> alert('언어/지역 설정 예정 영역'));
 
-    // Slider
-    const slides = document.getElementById('slides');
-    const dots = Array.from(document.getElementById('dots').children);
-    let idx=0, total=5, timer=null;
+    // Build slides
+    const slidesEl = document.getElementById('slides');
+    const dotsEl = document.getElementById('dots');
+    slidesEl.innerHTML = SLIDES.map(s => (
+      '<div class="slide"><a href="'+s.href+'" aria-label="'+(s.alt||'')+'">'
+      + '<img src="'+s.src+'" alt="'+(s.alt||'slide')+'" loading="lazy">'
+      + '</a></div>'
+    )).join('');
+    dotsEl.innerHTML = SLIDES.map(() => '<div class="dot"></div>').join('');
 
-    function go(i){ idx=(i+total)%total; slides.style.transform='translateX('+(-idx*100)+'%)'; dots.forEach((d,n)=>d.classList.toggle('active',n===idx)); }
+    const dots = Array.from(dotsEl.children);
+    let idx=0, total=SLIDES.length, timer=null;
+
+    function go(i){ idx=(i+total)%total; slidesEl.style.transform='translateX('+(-idx*100)+'%)'; dots.forEach((d,n)=>d.classList.toggle('active',n===idx)); }
     function start(){ stop(); timer=setInterval(()=>go(idx+1), 3000); }
     function stop(){ if(timer) clearInterval(timer); }
 
     dots.forEach((d,n)=> d.addEventListener('click', ()=>{ go(n); start(); }));
 
+    // touch swipe
     let startX=0,curX=0,drag=false;
-    slides.addEventListener('touchstart', e=>{ drag=true; startX=e.touches[0].clientX; stop(); });
-    slides.addEventListener('touchmove', e=>{ if(!drag) return; curX=e.touches[0].clientX; });
-    slides.addEventListener('touchend', ()=>{ if(!drag) return; drag=false; const dx=curX-startX; if(dx>40) go(idx-1); else if(dx<-40) go(idx+1); start(); });
+    slidesEl.addEventListener('touchstart', e=>{ drag=true; startX=e.touches[0].clientX; stop(); });
+    slidesEl.addEventListener('touchmove', e=>{ if(!drag) return; curX=e.touches[0].clientX; });
+    slidesEl.addEventListener('touchend', ()=>{ if(!drag) return; drag=false; const dx=curX-startX; if(dx>40) go(idx-1); else if(dx<-40) go(idx+1); start(); });
 
     go(0); start();
   </script>
