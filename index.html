@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -5,30 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>MINI GOLD NFT</title>
   <style>
-    :root{ --app-max:430px; --bg:#0c0f14; --bg-elev:#121722; --line:#1d2533; --text:#e8edf7; --muted:#9fb0c9;
-           --gold:#ffd76a; --danger:#ff7b7b; --chip:#182030; --radius:16px; --shadow:0 12px 30px rgba(0,0,0,.35);}
+    :root{
+      --app-max:430px; --bg:#0c0f14; --bg-elev:#121722; --line:#1d2533; --text:#e8edf7; --muted:#9fb0c9;
+      --gold:#ffd76a; --danger:#ffb76e; --chip:#182030; --radius:16px; --shadow:0 12px 30px rgba(0,0,0,.35);
+    }
     html{background:var(--bg);} body{margin:0;background:var(--bg);color:var(--text);
-         font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans KR',sans-serif;
-         display:flex;justify-content:center;}
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans KR',sans-serif;
+      display:flex;justify-content:center;}
     .app{width:100%;max-width:var(--app-max);min-height:100vh;}
 
+    /* Top bar */
     .topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#0e131b 0%, #0c0f14 100%);
-            border-bottom:1px solid var(--line);padding:10px 12px;display:grid;grid-template-columns:38px 1fr 38px;
-            align-items:center;gap:10px;}
+      border-bottom:1px solid var(--line);padding:10px 12px;display:grid;grid-template-columns:38px 1fr 38px;align-items:center;gap:10px;}
     .brand{text-align:center;font-weight:900;letter-spacing:.3px;}
-    .iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--chip);
-             display:grid;place-items:center;color:var(--text);}
+    .iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--chip);display:grid;place-items:center;color:var(--text);}
     .container{padding:16px;}
 
+    /* Cards */
     .card{background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
     .stats .stat-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:baseline;padding:4px 0;}
     .stats .label{color:var(--text);} .stats .value{min-width:92px;text-align:right;font-weight:800;}
     .stats .unit{width:58px;color:var(--muted);text-align:left;}
-    .danger{color:var(--danger);margin-top:6px;}
-    .icon-salt{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:6px;
-               background:linear-gradient(135deg,#a9d5ff,#e7f3ff);border:1px solid #8fb8df;margin-right:8px;}
-    .icon-salt svg{width:12px;height:12px;stroke:#0b203a;}
 
+    /* Centered price line */
+    .price-line{margin-top:10px;text-align:center;}
+    .price-pill{
+      display:inline-block;padding:8px 14px;border-radius:999px;
+      background:rgba(255,215,106,.12); color:var(--danger); border:1px solid rgba(255,215,106,.35);
+      font-weight:800;
+    }
+
+    /* Slider */
     .slider-wrap{position:relative;margin-top:14px;}
     .slider{overflow:hidden;border-radius:var(--radius);border:1px solid var(--line);background:#0b0f17;}
     .slides{display:flex;width:100%;transform:translateX(0);transition:transform .45s ease;}
@@ -37,33 +45,48 @@
     .dots{display:flex;gap:6px;justify-content:center;margin-top:10px;} .dot{width:8px;height:8px;border-radius:99px;background:#2b3548;}
     .dot.active{background:var(--gold);box-shadow:0 0 0 4px rgba(255,215,106,.16);}
 
+    /* Bottom tabbar */
     .spacer{height:72px;}
     .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:100%;max-width:var(--app-max);
-           display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px;box-sizing:border-box;}
-    .tab{display:block;text-align:center;padding:12px 0;border-radius:14px;background:var(--chip);border:1px solid var(--line);
-         color:var(--text);text-decoration:none;}
-    .tab.active{background:var(--gold);color:#0c0f14;border-color:var(--gold);font-weight:900;}
+      display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px;box-sizing:border-box;}
+    .tab{display:block;text-align:center;padding:12px 0;border-radius:14px;background:var(--gold);border:1px solid var(--line);color:#0c0f14;text-decoration:none;font-weight:900;}
+    .tab:not(.active){background:var(--chip);color:var(--text);font-weight:500;}
 
+    /* Drawer */
     .drawer{position:fixed;inset:0;z-index:50;display:none;} .drawer.open{display:block;}
     .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5);}
     .drawer .panel{position:absolute;left:0;top:0;bottom:0;width:78%;max-width:300px;background:#0b0f17;border-right:1px solid var(--line);
-                   box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:10px;}
+      box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:10px;}
     .drawer a{color:var(--text);text-decoration:none;padding:10px 8px;border-radius:10px;} .drawer a:hover{background:#151c2a;}
+
+    /* Salt icon */
+    .icon-salt{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:6px;background:linear-gradient(135deg,#a9d5ff,#e7f3ff);border:1px solid #8fb8df;margin-right:8px;}
+    .icon-salt svg{width:12px;height:12px;stroke:#0b203a;}
+
+    /* Footer company (legal) */
+    .legal{margin-top:18px;padding:14px;border-radius:var(--radius);border:1px solid var(--line);background:#0b0f17;text-align:center;color:var(--muted);line-height:1.5;}
+    .legal strong{color:var(--text);}
   </style>
 </head>
 <body>
   <div class="app">
     <div class="topbar">
       <button class="iconbtn" id="btn-menu" aria-label="메뉴">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M3 12h18M3 18h18"></path>
+        </svg>
       </button>
       <div class="brand">MINI GOLD NFT</div>
       <button class="iconbtn" id="btn-globe" aria-label="언어/글로벌">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
+        </svg>
       </button>
     </div>
 
     <main class="container">
+      <!-- Stats -->
       <section class="card stats">
         <div class="stat-row">
           <span class="label"><span class="icon-salt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3l7 7-7 11L5 10 12 3z" stroke="currentColor"/></svg></span>현재 보유 NFT</span>
@@ -77,18 +100,32 @@
           <span class="label"><span class="icon-salt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3l7 7-7 11L5 10 12 3z" stroke="currentColor"/></svg></span>락업 수익 NFT</span>
           <span class="value">300</span><span class="unit">pieces</span>
         </div>
-        <p class="danger">NFT 1 pieces / 5,000 KRW</p>
+
+        <!-- price pill centered -->
+        <div class="price-line">
+          <span class="price-pill">NFT 1 pieces / 5,000 KRW</span>
+        </div>
       </section>
 
+      <!-- Slider -->
       <section class="slider-wrap">
         <div class="slider"><div class="slides" id="slides"></div></div>
         <div class="dots" id="dots"></div>
+      </section>
+
+      <!-- Footer company info -->
+      <section class="legal">
+        <div><strong>미즈홀딩스 주식회사</strong> | 대표자 <strong>김윤사</strong></div>
+        <div>서울시 관악구 남부순환로 1461 정원빌딩 3층</div>
       </section>
     </main>
 
     <div class="spacer"></div>
     <nav class="tabbar">
-      <a class="tab active" href="/">Home</a><a class="tab" href="/event">Event</a><a class="tab" href="/invest">Invest</a><a class="tab" href="/service">Service</a>
+      <a class="tab active" href="/">Home</a>
+      <a class="tab" href="/event">Event</a>
+      <a class="tab" href="/invest">Invest</a>
+      <a class="tab" href="/service">Service</a>
     </nav>
 
     <div class="drawer" id="drawer">
@@ -97,21 +134,29 @@
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <div style="font-weight:900;">메뉴</div>
           <button class="iconbtn" id="btn-close" aria-label="닫기">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6 6 18M6 6l12 12"></path>
+            </svg>
           </button>
         </div>
-        <a href="/">대시보드</a><a href="/event">이벤트</a><a href="/invest">투자</a><a href="/service">서비스</a><a href="/my">마이페이지</a>
+        <a href="/">대시보드</a>
+        <a href="/event">이벤트</a>
+        <a href="/invest">투자</a>
+        <a href="/service">서비스</a>
+        <a href="/my">마이페이지</a>
       </aside>
     </div>
   </div>
 
   <script>
+    // Drawer
     const drawer=document.getElementById('drawer');
     document.getElementById('btn-menu').addEventListener('click',()=>drawer.classList.add('open'));
     document.getElementById('btn-close').addEventListener('click',()=>drawer.classList.remove('open'));
     document.getElementById('backdrop').addEventListener('click',()=>drawer.classList.remove('open'));
     document.getElementById('btn-globe').addEventListener('click',()=>alert('언어/지역 설정 예정 영역'));
 
+    // Slides (from /public/slide -> /slide in prod)
     const SLIDES=[
       {src:'/slide/slide1.png',href:'/event',alt:'이벤트 배너'},
       {src:'/slide/slide2.png',href:'/invest',alt:'투자 배너'},
@@ -128,7 +173,7 @@
     function start(){stop();timer=setInterval(()=>go(idx+1),3000);} function stop(){if(timer)clearInterval(timer);}
     dots.forEach((d,n)=>d.addEventListener('click',()=>{go(n);start();}));
     let startX=0,curX=0,drag=false;
-    slidesEl.addEventListener('touchstart',e=>{drag=True;startX=e.touches[0].clientX;stop();});
+    slidesEl.addEventListener('touchstart',e=>{drag=true;startX=e.touches[0].clientX;stop();});
     slidesEl.addEventListener('touchmove',e=>{if(!drag)return;curX=e.touches[0].clientX;});
     slidesEl.addEventListener('touchend',()=>{if(!drag)return;drag=false;const dx=curX-startX;if(dx>40)go(idx-1);else if(dx<-40)go(idx+1);start();});
     go(0);start();
