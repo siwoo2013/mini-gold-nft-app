@@ -69,20 +69,25 @@
 </head>
 <body>
   <div class="app">
+    <!-- ✅ topbar: 메뉴 / 중앙브랜드 / 지구 버튼 (분리) -->
     <div class="topbar">
       <button class="iconbtn" id="btn-menu" aria-label="메뉴">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M3 6h18M3 12h18M3 18h18"></path>
         </svg>
       </button>
-      <div class="brand">MINI GOLD NFT
+
+      <div class="brand">MINI GOLD NFT</div>
+
       <button class="iconbtn" id="btn-globe" aria-label="언어/글로벌">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="9"></circle>
           <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
         </svg>
-      </button></div>
-      
+      </button>
+    </div>
+    <!-- ⬆️ 여기까지가 .topbar. 꼭 닫힌 상태여야 함 -->
+
     <main class="container">
       <section class="card" style="text-align:center">
         <h2 style="margin:8px 0 6px">Event</h2>
@@ -97,11 +102,12 @@
     </main>
 
     <nav class="tabbar">
-      <a class="tab active" href="/">Home</a>
-      <a class="tab" href="/event">Event</a>
-      <a class="tab" href="/invest">Invest</a>
-      <a class="tab" href="/service">Service</a>
+      <a class="tab" href="/">Home</a>
+      <a class="tab active" href="/event/">Event</a>
+      <a class="tab" href="/invest/">Invest</a>
+      <a class="tab" href="/service/">Service</a>
     </nav>
+
     <div class="drawer" id="drawer">
       <div class="backdrop" id="backdrop"></div>
       <aside class="panel">
@@ -114,19 +120,20 @@
           </button>
         </div>
         <a href="/">대시보드</a>
-        <a href="/event">이벤트</a>
-        <a href="/invest">투자</a>
-        <a href="/service">서비스</a>
-        <a href="/my">마이페이지</a>
+        <a href="/event/">이벤트</a>
+        <a href="/invest/">투자</a>
+        <a href="/service/">서비스</a>
+        <a href="/my/">마이페이지</a>
       </aside>
     </div>
   </div>
+
   <script>
-  // Drawer
-const drawer=document.getElementById('drawer');
-document.getElementById('btn-menu').addEventListener('click',()=>drawer.classList.add('open'));
-document.getElementById('btn-close').addEventListener('click',()=>drawer.classList.remove('open'));
-document.getElementById('backdrop').addEventListener('click',()=>drawer.classList.remove('open'));
+    // Drawer
+    const drawer=document.getElementById('drawer');
+    document.getElementById('btn-menu').addEventListener('click',()=>drawer.classList.add('open'));
+    document.getElementById('btn-close').addEventListener('click',()=>drawer.classList.remove('open'));
+    document.getElementById('backdrop').addEventListener('click',()=>drawer.classList.remove('open'));
   </script>
 </body>
 </html>
