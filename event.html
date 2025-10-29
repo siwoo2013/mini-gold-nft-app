@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="ko">
 <head>
@@ -66,11 +65,6 @@
     /* Footer company (legal) */
     .legal{margin-top:18px;padding:14px;border-radius:var(--radius);border:1px solid var(--line);background:#0b0f17;text-align:center;color:var(--muted);line-height:1.5;}
     .legal strong{color:var(--text);}
-  
-    /* Video */
-    .video-wrap{margin:14px 0 6px;}
-    .video-16x9{position:relative;width:100%;padding-top:56.25%;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);}
-    .video-16x9 iframe{position:absolute;inset:0;width:100%;height:100%;}
   </style>
 </head>
 <body>
@@ -82,40 +76,11 @@
         </svg>
       </button>
       <div class="brand">MINI GOLD NFT</div>
-      <button class="iconbtn" id="btn-globe" aria-label="언어/글로벌">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="9"></circle>
-          <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
-        </svg>
-      </button>
-    </div>
-
+      
     <main class="container">
-      <!-- Stats -->
-      <section class="card stats">
-        <div class="stat-row">
-          <span class="label"><span class="icon-salt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3l7 7-7 11L5 10 12 3z" stroke="currentColor"/></svg></span>현재 보유 NFT</span>
-          <span class="value">1,467</span><span class="unit">pieces</span>
-        </div>
-        <div class="stat-row">
-          <span class="label"><span class="icon-salt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3l7 7-7 11L5 10 12 3z" stroke="currentColor"/></svg></span>당일 수익 NFT</span>
-          <span class="value">10</span><span class="unit">pieces</span>
-        </div>
-        <div class="stat-row">
-          <span class="label"><span class="icon-salt" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3l7 7-7 11L5 10 12 3z" stroke="currentColor"/></svg></span>락업 수익 NFT</span>
-          <span class="value">300</span><span class="unit">pieces</span>
-        </div>
-
-        <!-- price pill centered -->
-        <div class="price-line">
-          <span class="price-pill">NFT 1 pieces / 5,000 KRW</span>
-        </div>
-      </section>
-
-      <!-- Slider -->
-      <section class="slider-wrap">
-        <div class="slider"><div class="slides" id="slides"></div></div>
-        <div class="dots" id="dots"></div>
+      <section class="card" style="text-align:center">
+        <h2 style="margin:8px 0 6px">Event</h2>
+        <p>콘텐츠 준비 중...</p>
       </section>
 
       <!-- Footer company info -->
@@ -125,14 +90,12 @@
       </section>
     </main>
 
-    <div class="spacer"></div>
     <nav class="tabbar">
       <a class="tab active" href="/">Home</a>
       <a class="tab" href="/event">Event</a>
       <a class="tab" href="/invest">Invest</a>
       <a class="tab" href="/service">Service</a>
     </nav>
-
     <div class="drawer" id="drawer">
       <div class="backdrop" id="backdrop"></div>
       <aside class="panel">
@@ -152,36 +115,8 @@
       </aside>
     </div>
   </div>
-
   <script>
-    // Drawer
-    const drawer=document.getElementById('drawer');
-    document.getElementById('btn-menu').addEventListener('click',()=>drawer.classList.add('open'));
-    document.getElementById('btn-close').addEventListener('click',()=>drawer.classList.remove('open'));
-    document.getElementById('backdrop').addEventListener('click',()=>drawer.classList.remove('open'));
-    document.getElementById('btn-globe').addEventListener('click',()=>alert('언어/지역 설정 예정 영역'));
-
-    // Slides (from /public/slide -> /slide in prod)
-    const SLIDES=[
-      {src:'/slide/slide1.png',href:'/event',alt:'이벤트 배너'},
-      {src:'/slide/slide2.png',href:'/invest',alt:'투자 배너'},
-      {src:'/slide/slide3.png',href:'/service',alt:'서비스 배너'},
-      {src:'/slide/slide4.png',href:'https://example.com',alt:'외부 링크'},
-      {src:'/slide/slide5.png',href:'/my',alt:'마이페이지 배너'},
-    ];
-    const slidesEl=document.getElementById('slides');
-    const dotsEl=document.getElementById('dots');
-    slidesEl.innerHTML=SLIDES.map(s=>'<div class="slide"><a href="'+s.href+'" aria-label="'+(s.alt||'')+'"><img src="'+s.src+'" alt="'+(s.alt||'slide')+'" loading="lazy"></a></div>').join('');
-    dotsEl.innerHTML=SLIDES.map(()=>'<div class="dot"></div>').join('');
-    const dots=Array.from(dotsEl.children);let idx=0,total=SLIDES.length,timer=null;
-    function go(i){idx=(i+total)%total;slidesEl.style.transform='translateX('+(-idx*100)+'%)';dots.forEach((d,n)=>d.classList.toggle('active',n===idx));}
-    function start(){stop();timer=setInterval(()=>go(idx+1),3000);} function stop(){if(timer)clearInterval(timer);}
-    dots.forEach((d,n)=>d.addEventListener('click',()=>{go(n);start();}));
-    let startX=0,curX=0,drag=false;
-    slidesEl.addEventListener('touchstart',e=>{drag=true;startX=e.touches[0].clientX;stop();});
-    slidesEl.addEventListener('touchmove',e=>{if(!drag)return;curX=e.touches[0].clientX;});
-    slidesEl.addEventListener('touchend',()=>{if(!drag)return;drag=false;const dx=curX-startX;if(dx>40)go(idx-1);else if(dx<-40)go(idx+1);start();});
-    go(0);start();
+  const drawer=document.getElementById('drawer');document.getElementById('btn-menu').addEventListener('click',()=>drawer.classList.add('open'));document.getElementById('btn-close').addEventListener('click',()=>drawer.classList.remove('open'));document.getElementById('backdrop').addEventListener('click',()=>drawer.classList.remove('open'));
   </script>
 </body>
 </html>
