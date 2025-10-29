@@ -1,6 +1,8 @@
 :root{
   /* 홈/서브 공통 가로 규격 */
-  --app-max:560px;
+  :root { --wrap: 560px; }           /* 사이트 공통 폭 */
+.container { max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
+header, main, footer { width: 100%; }
 
   /* 테마 컬러 */
   --bg:#0c0f14; --bg-elev:#121722; --line:#1d2533; --text:#e8edf7; --muted:#9fb0c9;
