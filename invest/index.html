@@ -14,55 +14,25 @@
       display:flex;justify-content:center;}
     .app{width:100%;max-width:var(--app-max);min-height:100vh;}
 
-    /* Top bar */
     .topbar{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#0e131b 0%, #0c0f14 100%);
       border-bottom:1px solid var(--line);padding:10px 12px;display:grid;grid-template-columns:38px 1fr 38px;align-items:center;gap:10px;}
     .brand{text-align:center;font-weight:900;letter-spacing:.3px;}
     .iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--chip);display:grid;place-items:center;color:var(--text);}
     .container{padding:16px;}
 
-    /* Cards */
     .card{background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
-    .stats .stat-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:baseline;padding:4px 0;}
-    .stats .label{color:var(--text);} .stats .value{min-width:92px;text-align:right;font-weight:800;}
-    .stats .unit{width:58px;color:var(--muted);text-align:left;}
 
-    /* Centered price line */
-    .price-line{margin-top:10px;text-align:center;}
-    .price-pill{
-      display:inline-block;padding:8px 14px;border-radius:999px;
-      background:rgba(255,215,106,.12); color:var(--danger); border:1px solid rgba(255,215,106,.35);
-      font-weight:800;
-    }
-
-    /* Slider */
-    .slider-wrap{position:relative;margin-top:14px;}
-    .slider{overflow:hidden;border-radius:var(--radius);border:1px solid var(--line);background:#0b0f17;}
-    .slides{display:flex;width:100%;transform:translateX(0);transition:transform .45s ease;}
-    .slide{min-width:100%;height:170px;position:relative;} .slide a{display:block;width:100%;height:100%;}
-    .slide img{width:100%;height:100%;object-fit:cover;display:block;}
-    .dots{display:flex;gap:6px;justify-content:center;margin-top:10px;} .dot{width:8px;height:8px;border-radius:99px;background:#2b3548;}
-    .dot.active{background:var(--gold);box-shadow:0 0 0 4px rgba(255,215,106,.16);}
-
-    /* Bottom tabbar */
-    .spacer{height:72px;}
     .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:100%;max-width:var(--app-max);
       display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px;box-sizing:border-box;}
     .tab{display:block;text-align:center;padding:12px 0;border-radius:14px;background:var(--gold);border:1px solid var(--line);color:#0c0f14;text-decoration:none;font-weight:900;}
     .tab:not(.active){background:var(--chip);color:var(--text);font-weight:500;}
 
-    /* Drawer */
     .drawer{position:fixed;inset:0;z-index:50;display:none;} .drawer.open{display:block;}
     .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5);}
     .drawer .panel{position:absolute;left:0;top:0;bottom:0;width:78%;max-width:300px;background:#0b0f17;border-right:1px solid var(--line);
       box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:10px;}
     .drawer a{color:var(--text);text-decoration:none;padding:10px 8px;border-radius:10px;} .drawer a:hover{background:#151c2a;}
 
-    /* Salt icon */
-    .icon-salt{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:6px;background:linear-gradient(135deg,#a9d5ff,#e7f3ff);border:1px solid #8fb8df;margin-right:8px;}
-    .icon-salt svg{width:12px;height:12px;stroke:#0b203a;}
-
-    /* Footer company (legal) */
     .legal{margin-top:18px;padding:14px;border-radius:var(--radius);border:1px solid var(--line);background:#0b0f17;text-align:center;color:var(--muted);line-height:1.5;}
     .legal strong{color:var(--text);}
   </style>
@@ -75,21 +45,21 @@
           <path d="M3 6h18M3 12h18M3 18h18"></path>
         </svg>
       </button>
-      <div class="brand">MINI GOLD NFT
+      <div class="brand">MINI GOLD NFT</div>
       <button class="iconbtn" id="btn-globe" aria-label="언어/글로벌">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="9"></circle>
           <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
         </svg>
-      </button></div>
-      
+      </button>
+    </div>
+
     <main class="container">
       <section class="card" style="text-align:center">
         <h2 style="margin:8px 0 6px">Invest</h2>
         <p>콘텐츠 준비 중...</p>
       </section>
 
-      <!-- Footer company info -->
       <section class="legal">
         <div><strong>미즈홀딩스 주식회사</strong> | 대표자 <strong>김윤사</strong></div>
         <div>서울시 관악구 남부순환로 1461 정원빌딩 3층</div>
@@ -97,11 +67,12 @@
     </main>
 
     <nav class="tabbar">
-      <a class="tab active" href="/">Home</a>
-      <a class="tab" href="/event">Event</a>
-      <a class="tab" href="/invest">Invest</a>
-      <a class="tab" href="/service">Service</a>
+      <a class="tab " href="/">Home</a>
+      <a class="tab " href="/event/">Event</a>
+      <a class="tab active" href="/invest/">Invest</a>
+      <a class="tab " href="/service/">Service</a>
     </nav>
+
     <div class="drawer" id="drawer">
       <div class="backdrop" id="backdrop"></div>
       <aside class="panel">
@@ -114,19 +85,18 @@
           </button>
         </div>
         <a href="/">대시보드</a>
-        <a href="/event">이벤트</a>
-        <a href="/invest">투자</a>
-        <a href="/service">서비스</a>
-        <a href="/my">마이페이지</a>
+        <a href="/event/">이벤트</a>
+        <a href="/invest/">투자</a>
+        <a href="/service/">서비스</a>
+        <a href="/my/">마이페이지</a>
       </aside>
     </div>
   </div>
   <script>
-  // Drawer
-const drawer=document.getElementById('drawer');
-document.getElementById('btn-menu').addEventListener('click',()=>drawer.classList.add('open'));
-document.getElementById('btn-close').addEventListener('click',()=>drawer.classList.remove('open'));
-document.getElementById('backdrop').addEventListener('click',()=>drawer.classList.remove('open'));
+    const drawer=document.getElementById('drawer');
+    document.getElementById('btn-menu').addEventListener('click',()=>drawer.classList.add('open'));
+    document.getElementById('btn-close').addEventListener('click',()=>drawer.classList.remove('open'));
+    document.getElementById('backdrop').addEventListener('click',()=>drawer.classList.remove('open'));
   </script>
 </body>
 </html>
